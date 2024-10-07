@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://bcicbla5kgk0b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqnq4"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ipql6"]
+material = SubResource("StandardMaterial3D_eqnq4")
+radius = 0.6
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqchp"]
+albedo_color = Color(0.392157, 0, 0.109804, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.392157, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2hox4"]
+material = SubResource("StandardMaterial3D_vqchp")
+size = Vector3(6, 0.25, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyakg"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_cw1si"]
+material = SubResource("StandardMaterial3D_yyakg")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_p8qg0"]
+_data = [Vector2(0.0122577, 1), 0.0, 0.0, 0, 0, Vector2(0.97672, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tnjm8"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mrooo"]
+height = 0.25
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epnbx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_af5ih"]
+material = SubResource("StandardMaterial3D_epnbx")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Curve" id="Curve_7fxvv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yi8vk"]
+margin = 0.53
+radius = 1.08
+
+[node name="Listener" type="Listener"]
+patrol_speed = 3.0
+seek_speed = 3.0
+charge_speed = 10.0
+gravity = 9.8
+damage = 5
+sensitivity = 1.0
+spin_radius = 3.0
+play_blade_noise = true
+damage_tick_speed = 1.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2914, 2.80465, 12.0213)
+metadata/ignore_visibility = true
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.2, 2.08165e-12)
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("SphereMesh_ipql6")
+
+[node name="Blade" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("BoxMesh_2hox4")
+
+[node name="RightParticles" type="CPUParticles3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("BoxMesh_cw1si")
+emission_shape = 3
+emission_box_extents = Vector3(2, 0.25, 0.8)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+scale_amount_curve = SubResource("Curve_p8qg0")
+
+[node name="LeftParticles" type="CPUParticles3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("BoxMesh_cw1si")
+emission_shape = 3
+emission_box_extents = Vector3(2, 0.25, 0.8)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+scale_amount_curve = SubResource("Curve_p8qg0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0255735, 0)
+shape = SubResource("CapsuleShape3D_tnjm8")
+
+[node name="Waypoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="Waypoint" type="Waypoint" parent="Waypoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.24756, 0, -10.5098)
+
+[node name="FeelArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.2, 2.08165e-12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FeelArea"]
+shape = SubResource("CylinderShape3D_mrooo")
+
+[node name="BodyParticles" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 24
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_af5ih")
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+linear_accel_min = -10.0
+scale_amount_curve = SubResource("Curve_7fxvv")
+
+[node name="HitBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0255735, 0)
+shape = SubResource("SphereShape3D_yi8vk")
+
+[node name="_AudioStreamPlayer3D_18029" type="AudioStreamPlayer3D" parent="."]
+max_polyphony = 5
+
+[node name="_AudioStreamPlayer3D_18030" type="AudioStreamPlayer3D" parent="."]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6md61bfhys4f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ek7c0"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5iwlt"]
+material = SubResource("StandardMaterial3D_ek7c0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_3vyd6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mi052"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocxp3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ge5rj"]
+material = SubResource("StandardMaterial3D_ocxp3")
+
+[node name="HealthCollectible" type="HealthCollectible"]
+metadata/is_dash_collectible = true
+metadata/is_health_collectible = true
+metadata/ignore_visibility = true
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+mesh = SubResource("BoxMesh_5iwlt")
+direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_curve = SubResource("Curve_3vyd6")
+color = Color(1, 0, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+shape = SubResource("BoxShape3D_mi052")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.576755, 0, 0.816896, 0, 1, 0, -0.816901, 0, -0.576749, 0, 0, 0)
+mesh = SubResource("BoxMesh_ge5rj")

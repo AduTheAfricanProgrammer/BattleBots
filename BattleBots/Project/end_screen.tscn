@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://6e0b3iu0bjwt"]
+
+[ext_resource type="Script" path="res://end_screen.gd" id="1_2oclu"]
+[ext_resource type="AudioStream" uid="uid://clncdeo1e63gv" path="res://Sounds/loss.wav" id="2_gtidh"]
+[ext_resource type="AudioStream" uid="uid://dhpfk6mesjlxb" path="res://Sounds/victory.wav" id="3_4idjo"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2oclu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.14902, 0.180392, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 300.0
+offset_top = 79.0
+offset_right = 902.0
+offset_bottom = 219.0
+theme_override_font_sizes/font_size = 100
+text = "GAME OVER!"
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 150.0
+offset_top = 500.0
+offset_right = 450.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 30
+text = "MENU"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 750.0
+offset_top = 500.0
+offset_right = 1050.0
+offset_bottom = 600.0
+theme_override_font_sizes/font_size = 30
+text = "EXIT"
+
+[node name="OverMessage" type="Label" parent="."]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 252.0
+offset_right = 1080.0
+offset_bottom = 418.0
+theme_override_font_sizes/font_size = 50
+text = "THE OTHER PLAYER DISCONNECTED!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="LossPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gtidh")
+volume_db = -5.0
+
+[node name="WinPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4idjo")
+volume_db = -5.0
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_pressed"]

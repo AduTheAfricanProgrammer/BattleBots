@@ -1,0 +1,113 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqhqekajgvxsu"]
+
+[ext_resource type="Script" path="res://start_screen.gd" id="1_kmjea"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5ckd"]
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kmjea")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+z_index = -1
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 800.0
+color = Color(0.133333, 0.14902, 0.180392, 1)
+
+[node name="Singleplayer" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -41.0
+offset_right = 150.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_t5ckd")
+text = "SINGLEPLAYER"
+
+[node name="JoinGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = 81.0
+offset_right = 149.0
+offset_bottom = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_t5ckd")
+text = "JOIN GAME"
+
+[node name="CreateGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = 205.0
+offset_right = 149.0
+offset_bottom = 305.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_t5ckd")
+text = "CREATE GAME"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -342.0
+offset_top = 115.0
+offset_right = 323.0
+offset_bottom = 283.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.815686, 0, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 120
+text = "COOL TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WarningLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 738.0
+offset_right = 826.0
+offset_bottom = 769.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Singleplayer" to="." method="on_singleplayer_pressed"]
+[connection signal="pressed" from="JoinGame" to="." method="on_join_pressed"]
+[connection signal="pressed" from="CreateGame" to="." method="on_create_pressed"]

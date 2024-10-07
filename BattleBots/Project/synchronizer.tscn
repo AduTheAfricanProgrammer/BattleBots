@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3gdp76r1dee4"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mgmtp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:gravity")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("CollisionShape3D:position")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("MeshInstance3D:skeleton")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath("Rays:position")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath(".:process_mode")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
+properties/6/path = NodePath(".:rotation")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+
+[node name="Synchronizer" type="MultiplayerSynchronizer"]
+replication_config = SubResource("SceneReplicationConfig_mgmtp")

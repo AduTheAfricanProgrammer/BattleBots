@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c87rkkeco6kyf"]
+
+[ext_resource type="Texture2D" uid="uid://dw7ob5vfdq1vj" path="res://Images/stony.jpeg" id="1_6w5x3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ugqy"]
+albedo_texture = ExtResource("1_6w5x3")
+albedo_texture_force_srgb = true
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwxhl"]
+material = SubResource("StandardMaterial3D_6ugqy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gip38"]
+size = Vector3(100, 0.51, 100)
+
+[node name="Ground" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.51, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_uwxhl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gip38")

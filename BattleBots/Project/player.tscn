@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2usm8c68whnq"]
+
+[ext_resource type="Texture2D" uid="uid://big5msrly1vyc" path="res://icon.svg" id="1_jn83k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1huc2"]
+size = Vector3(2, 2, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na5pg"]
+albedo_texture = ExtResource("1_jn83k")
+
+[sub_resource type="BoxMesh" id="BoxMesh_xgpmc"]
+material = SubResource("StandardMaterial3D_na5pg")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s7l7t"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_niyoh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfd5m"]
+albedo_color = Color(0.576471, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_apjct"]
+material = SubResource("StandardMaterial3D_xfd5m")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_q52rc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.971209, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3dr5"]
+size = Vector3(1.2, 1.2, 1.2)
+
+[node name="Player" type="Player"]
+acceleration = 50.0
+gravity = 9.8
+max_speed = 5.0
+air_control = 0.5
+jump_height = 8.0
+dash_time = 0.2
+air_drag = 0.5
+ledge_mode = 1
+flight_time = 2.0
+dash_fill_speed = 30.0
+max_health = 100
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2, 2.08165e-12)
+floor_max_angle = 0.753982
+metadata/is_player = true
+
+[node name="Rays" type="Node3D" parent="."]
+
+[node name="Ray1" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4)
+target_position = Vector3(0, -2, 0)
+
+[node name="Ray2" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4)
+target_position = Vector3(0, -2, 0)
+
+[node name="Ray3" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.4)
+target_position = Vector3(0, -2, 0)
+
+[node name="Ray4" type="RayCast3D" parent="Rays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4)
+target_position = Vector3(0, -2, 0)
+
+[node name="GrabArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0, 1.25)
+collision_layer = 2
+metadata/grab_area = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrabArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100822)
+shape = SubResource("BoxShape3D_1huc2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xgpmc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_s7l7t")
+
+[node name="PlayerSpring" type="PlayerSpring" parent="."]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_niyoh")
+spring_length = 2.08165e-12
+
+[node name="PlayerCam" type="PlayerCam" parent="PlayerSpring"]
+
+[node name="_RayCast3D_18006" type="RayCast3D" parent="PlayerSpring/PlayerCam"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-06, -1, 0, 100, -4.37114e-08, 0, 0, 0)
+collide_with_areas = true
+
+[node name="_AudioStreamPlayer_18007" type="AudioStreamPlayer" parent="."]
+
+[node name="_AudioStreamPlayer_18008" type="AudioStreamPlayer" parent="."]
+
+[node name="FlightParticles" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+emitting = false
+amount = 20
+mesh = SubResource("BoxMesh_apjct")
+direction = Vector3(2.08165e-12, 1, 2.08165e-12)
+spread = 180.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+scale_amount_curve = SubResource("Curve_q52rc")
+
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_n3dr5")

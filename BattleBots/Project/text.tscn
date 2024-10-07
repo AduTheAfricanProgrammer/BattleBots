@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cmtvkillhjq4q"]
+
+[node name="Text" type="Label"]
+offset_right = 1.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 20
+text = "hello"
